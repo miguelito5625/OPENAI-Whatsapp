@@ -8,8 +8,14 @@ const configuration = new Configuration({
 
 let conversation = '';
 
-let preTrainingGirlFriend = 'vas ha chatear con mi novia tomando en cuenta lo siguiente: esta enojada conmigo porque no respondo rapido, quiere ir al parque y '+ 
- 'quiere comer pizza, responde con mensajes cortos no mas de 20 palabras, agrega la palabra amor en cada respuesta, la conversacion comienza a partir del sigiguiente mensaje:';
+let preTrainingGirlFriend = `
+vas ha chatear con mi novia tomando en cuenta lo siguiente: poner amor en cada respuesta, 
+usar maximo 20 palabras,
+reponder educadamente,
+la conversacion comienza ahora: 
+`;
+
+console.log(preTrainingGirlFriend);
 
  pushConversation(preTrainingGirlFriend);
 
@@ -35,7 +41,7 @@ function askQuestion() {
         const completion = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: conversation,
-            max_tokens: 100
+            max_tokens: 300
         });
         // console.log(completion.data.choices[0].text);
         pushConversation(completion.data.choices[0].text);
@@ -45,8 +51,8 @@ function askQuestion() {
         if (conversation.length > 3000) {
             console.log('limpiando tokens');
             clearTokens();
+            console.log("Tokens: " + conversation.length);
         }
-        console.log("Tokens: " + conversation.length);
         askQuestion();
     });
 }
