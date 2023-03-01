@@ -9,7 +9,8 @@ const configuration = new Configuration({
 let conversation = '';
 
 let preTrainingGirlFriend = 
-`respondele a mi novia de manera educada y siempre dile amor o mi vida en cada respuesta, no le preguntes ¿Cómo puedo ayudarte hoy? nada parecido: `;
+`respondele a mi novia en una sola linea, no mas de 20 palabras, de manera educada y siempre dile amor o mi vida en cada respuesta: 
+`;
 
 // console.log(preTrainingGirlFriend);
 
