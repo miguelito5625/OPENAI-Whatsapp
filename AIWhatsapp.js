@@ -23,9 +23,9 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-let girlFriendConversation = '';
+let ClientConversation = '';
 
-let preTrainingGirlFriend = `
+let preTrainingClient = `
 vas ha chatear con mis clientes tomando en cuenta lo siguiente: somo una empresa que vende piedras en forma de gato, 
 horarios 24/7,
 descuestos dias festivos,
@@ -36,31 +36,31 @@ la conversacion comienza ahora:
 `;
 
 function pushConversation(txt) {
-    girlFriendConversation += txt + ' \n';
+    ClientConversation += txt + ' \n';
 }
 
 function clearTokens() {
-    conversation = preTrainingGirlFriend + ' \n' + conversation.substring(preTrainingGirlFriend.length + 500);
+    conversation = preTrainingClient + ' \n' + conversation.substring(preTrainingClient.length + 500);
 }
 
-pushConversation(preTrainingGirlFriend);
+pushConversation(preTrainingClient);
 
 
 async function answerMessageGirlFriend(phone, msg) {
     pushConversation(msg);
     const completion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: girlFriendConversation,
+        prompt: ClientConversation,
         max_tokens: 300
     });
     pushConversation(completion.data.choices[0].text);
     // return completion.data.choices[0].text;
     const answer = completion.data.choices[0].text;
     client.sendMessage(phone, answer);
-    log('info', `Message of ${phone}: ${msg} || AnswerAI: ${answer} || Tokens: ${girlFriendConversation.length}`);
-    if (girlFriendConversation.length > 3700) {
+    log('info', `Message of ${phone}: ${msg} || AnswerAI: ${answer} || Tokens: ${ClientConversation.length}`);
+    if (ClientConversation.length > 3700) {
         clearTokens();
-        log('warning', `Cleaning tokens: ${girlFriendConversation.length}`);
+        log('warning', `Cleaning tokens: ${ClientConversation.length}`);
     }
 }
 
