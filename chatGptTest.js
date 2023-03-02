@@ -8,27 +8,32 @@ const configuration = new Configuration({
 
 let conversation = '';
 
-let preTrainingGirlFriend = `
-vas ha chatear con mis clientes tomando en cuenta lo siguiente: somo una empresa que vende piedras en forma de gato, 
-horarios 24/7,
-descuestos dias festivos,
-servicio a domicilio,
-usar maximo 50 palabras,
-reponder educadamente,
-la conversacion comienza ahora: 
+let preTrainingWords = 
+`Respondele a mis clientes tomando en cuenta lo siguiente:
+somos una tienda con multiples productos,
+atendemos 24/7,
+tenemos los siguientes productos:
+1. leche a Q20.00
+2. Cereeal a Q15.00
+la conversacion comienza ahora:
 `;
 
-console.log(preTrainingGirlFriend);
+// console.log(preTrainingWords);
 
- pushConversation(preTrainingGirlFriend);
+ pushConversation(preTrainingWords);
 
 function pushConversation(txt){
-    conversation += txt + ' \n';
+    conversation += txt + '\n';
 }
 
 function clearTokens(){
-    conversation = preTrainingGirlFriend + ' \n' + conversation.substring(preTrainingGirlFriend.length+500);
+    conversation = preTrainingWords + ' \n' + conversation.substring(preTrainingWords.length+500);
 }
+
+function removeLines(text, linesToRemove) {
+    const lines = text.split("\n");
+    return [lines[0]].concat(lines.slice(linesToRemove + 1)).join("\n");
+  }
 
 console.log(conversation);
 
@@ -51,9 +56,10 @@ function askQuestion() {
         console.log("Conversacion:");
         console.log(conversation);
         console.log("Tokens: " + conversation.length);
-        if (conversation.length > 3000) {
+        if (conversation.length > 3500) {
             console.log('limpiando tokens');
-            clearTokens();
+            // clearTokens();
+            conversation = removeLines(conversation,2);
             console.log("Tokens: " + conversation.length);
         }
         askQuestion();

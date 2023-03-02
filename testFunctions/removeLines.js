@@ -10,5 +10,10 @@ function removeLines(text, linesToRemove) {
     return [lines[0]].concat(lines.slice(linesToRemove + 1)).join("\n");
   }
 
-  console.log(removeLines(conversation, 2));
+  console.log("tamanio: " + conversation.length);
+  console.log(conversation);
+  conversation = removeLines(conversation,2);
+
+  console.log("tamanio: " + conversation.length);
+  console.log(conversation);
 
