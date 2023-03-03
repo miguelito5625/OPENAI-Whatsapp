@@ -79,6 +79,8 @@ client.on('ready', () => {
 
 
 client.on('message', message => {
+    console.log("Mensaje de:", message.from);
+    console.log("Mensaje:", message.body);
     if (message.from === "50251268484@c.us") {
         answerMessageGirlFriend(message.from, message.body);
     }
